@@ -2,36 +2,40 @@ var fs = require('fs');
 
 
 class DS 
-{
-
-   
+{   
     constructor(path) {
          this.mp = new Map();
         // check if file already exist
 
+        // Test the if the file exists 
+           // console.log('\n> Checking if the file exists'); 
+            try { 
+            fs.accessSync(path, fs.constants.F_OK); 
+           // console.log('File does exist'); 
+            } catch (err) { 
+           // console.error('File does not exist'); 
+            fs.writeFileSync(path, ""); 
 
-        // create te file
-        fs.accessSync(path, error => {
-            if (error) {
-                fs.open(path, 'w', function (err, file) {
-					if (err) throw err;
-					
-					}); 
-            } else {
-             
-            }
-        });
+            } 
+            
+          //  console.log('\nCreating the file'); 
+            
+            // Test the if the file exists again 
+          //  console.log('\n> Checking if the file exists'); 
+            try { 
+            fs.accessSync(path, fs.constants.F_OK); 
+          //  console.log('File does exist'); 
+            } catch (err) { 
+           // console.error('File does not exist'); 
+            } 
 
 
     // read the txtx file
 
-    fs.readFileSync(path, 'utf-8', (err, data) => {
-		if (err) {
-			throw err;
-		}
-       
+   const data =  fs.readFileSync(path, 'utf-8')
+		
 		let res = data.split("+");
-        
+        console.log(res);
 		// parse JSON object
 		for(let i = 0;i < res.length-1;i++){
             const user = JSON.parse(res[i].toString());
@@ -41,16 +45,13 @@ class DS
            // console.log(this.mp.get(user.key));
 
 		}
-		
-	});
-
     
     }
     
 
      add(key,value) {
 
-    //  if(!this.mp.get(key)) return;
+      if(this.mp.get(key) != undefined) return;
 
        const data = JSON.stringify(value);
        
@@ -66,21 +67,24 @@ class DS
        
         val = val + "+";
 
-        fs.appendFileSync('data.txt', val,  (err) => {
-            if (err) throw err;
-            console.log('Saved!');
-        });
+        fs.appendFileSync('data.txt', val);
 
     }
 
     read(key) {
 
         //iterate the map
-         
-          // console.log(this.mp.get(key));
+         if(this.mp.get(key) != undefined)
+         {
+            console.log(this.mp.get(key));
+         }else{
+            console.log(`${key}` + " does not exist");
+         }
+           
     }
 
     delete(key) {  
+        this.data
 		this.mp.delete(key)
     }
   
@@ -98,10 +102,12 @@ class DS
     "cgpa" : 4.9
   }
 
-  obj.add("ayush",val);
-  obj.add("pratik",val2);
-  obj.add("a2",val2);
+   obj.add("ayush",val);
+   obj.add("pratik",val2);
+//   obj.add("a2",val2);
 
 
 
-  obj.read('ayush');
+   obj.read('ayush');
+   obj.delete('ayush');
+   obj.read('ayush');
