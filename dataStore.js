@@ -1,7 +1,8 @@
 var fs = require('fs');
 
 
-class DS {
+class DS 
+{
 
    
     constructor(path) {
@@ -10,17 +11,46 @@ class DS {
 
 
         // create te file
-    fs.open(path, 'w', function (err, file) {
-        if (err) throw err;
-        console.log('Saved!');
-    }); 
+        fs.accessSync(path, error => {
+            if (error) {
+                fs.open(path, 'w', function (err, file) {
+					if (err) throw err;
+					
+					}); 
+            } else {
+             
+            }
+        });
+
+
+    // read the txtx file
+
+    fs.readFileSync(path, 'utf-8', (err, data) => {
+		if (err) {
+			throw err;
+		}
+       
+		let res = data.split("+");
+        
+		// parse JSON object
+		for(let i = 0;i < res.length-1;i++){
+            const user = JSON.parse(res[i].toString());
+           // console.log( JSON.parse(user.value.toString()));
+            this.mp.set(user.key,user.value);
+            console.log(this.mp.size)
+           // console.log(this.mp.get(user.key));
+
+		}
+		
+	});
+
     
     }
     
 
-    add(key,value) {
+     add(key,value) {
 
-     
+    //  if(!this.mp.get(key)) return;
 
        const data = JSON.stringify(value);
        
@@ -29,15 +59,14 @@ class DS {
             key : key,
             value : data
         };
-        
-       // console.log(key);
-       this.mp.set(key, data); 
+        console.log("hello")
+        console.log(this.mp.size);
 
         let val = JSON.stringify(user);
-       // check if key exist
-            // iterate the map
+       
         val = val + "+";
-        fs.appendFile('data.txt', val,  (err) => {
+
+        fs.appendFileSync('data.txt', val,  (err) => {
             if (err) throw err;
             console.log('Saved!');
         });
@@ -46,40 +75,16 @@ class DS {
 
     read(key) {
 
-        // load the data file
-       // let pt =  this.path;
-       console.log(this.mp.get(key));
-        fs.readFile('data.txt', 'utf-8', (err, data) => {
-            if (err) {
-                throw err;
-            }
-
-           
-            let res = data.split("+");
-        
-            // parse JSON object
-            for(let i =0;i < res.length-1;i++){
-                const user = JSON.parse(res[i].toString());
-        
-                // print JSON object
-                console.log(user);
-            }
-            
-        });
-
         //iterate the map
-
-
-
-        //console log the value
-
+         
+          // console.log(this.mp.get(key));
     }
 
-    delete(key) {
-
+    delete(key) {  
+		this.mp.delete(key)
     }
   
-  }
+}
   
   // Usage:
   let obj = new DS('./data.txt');
@@ -91,10 +96,12 @@ class DS {
   const val2 = {
     "age" : 21,
     "cgpa" : 4.9
-}
+  }
 
   obj.add("ayush",val);
   obj.add("pratik",val2);
+  obj.add("a2",val2);
 
 
- obj.read("ayush");
+
+  obj.read('ayush');
