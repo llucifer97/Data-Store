@@ -1,4 +1,5 @@
 var fs = require('fs');
+const { type } = require('os');
 
 
 class DS 
@@ -54,6 +55,23 @@ class DS
 
      add(key,value) {
 
+        // if(typeof(value) != object || value == null){
+        //     console.log("Invalid format!! Only JSON object is accepted");
+        //     return;
+        // }
+
+        if(key.length > 32){
+            console.log("Insert key of maximum 32 character!")
+            return;
+        }
+
+        const size = Buffer.byteLength(JSON.stringify(value))
+        if(size > 16000){
+            console.log("Object can be of maximum 16KB")
+            return;
+        }
+        
+
       if(this.mp.get(key) != undefined) return;
 
        const data = JSON.stringify(value);
@@ -79,9 +97,11 @@ class DS
         //iterate the map
          if(this.mp.get(key) != undefined)
          {
-            console.log(this.mp.get(key));
+            //console.log(this.mp.get(key));
+            return this.mp.get(key)
          }else{
             console.log(`${key}` + " does not exist");
+             
          }
            
     }
@@ -123,7 +143,7 @@ class DS
     "cgpa" : 4.9
   }
 
-//    obj.add("ayush",val);
+    obj.add("ayush",val);
 //    obj.add("pratik",val2);
 //   obj.add("a2",val2);
 
@@ -131,4 +151,5 @@ class DS
 
    //  obj.read('ayush');
    //  obj.delete('ayush');
-    obj.read('ayush');
+    let b = JSON.parse(obj.read('ayush'))
+     console.log(b.age);
