@@ -5,6 +5,9 @@ class DS
 {   
     constructor(path) {
          this.mp = new Map();
+          this.data = ""
+          this.res = ""
+          this.path = path
         // check if file already exist
 
         // Test the if the file exists 
@@ -32,16 +35,16 @@ class DS
 
     // read the txtx file
 
-   const data =  fs.readFileSync(path, 'utf-8')
+    this.data =  fs.readFileSync(path, 'utf-8')
 		
-		let res = data.split("+");
-        console.log(res);
+		 this.res = this.data.split("+");
+       // console.log(res);
 		// parse JSON object
-		for(let i = 0;i < res.length-1;i++){
-            const user = JSON.parse(res[i].toString());
+		for(let i = 0;i < this.res.length-1;i++){
+            const user = JSON.parse(this.res[i].toString());
            // console.log( JSON.parse(user.value.toString()));
             this.mp.set(user.key,user.value);
-            console.log(this.mp.size)
+            //console.log(this.mp.size)
            // console.log(this.mp.get(user.key));
 
 		}
@@ -60,8 +63,8 @@ class DS
             key : key,
             value : data
         };
-        console.log("hello")
-        console.log(this.mp.size);
+       
+        
 
         let val = JSON.stringify(user);
        
@@ -84,7 +87,25 @@ class DS
     }
 
     delete(key) {  
-        this.data
+        // console.log(this.data)
+        // console.log(this.res)  // array
+        fs.writeFileSync(this.path, ""); 
+        for(let i = 0;i < this.res.length-1;i++){
+            const user = JSON.parse(this.res[i].toString());
+            // console.log( JSON.parse(user.value.toString()));
+            //this.mp.set(user.key,user.value);
+            if(user.key == key) continue;
+            let val = JSON.stringify(user);
+       
+            val = val + "+";
+
+            fs.appendFileSync('data.txt', val);
+
+           // console.log(this.mp.get(user.key));
+
+		}
+       
+
 		this.mp.delete(key)
     }
   
@@ -102,12 +123,12 @@ class DS
     "cgpa" : 4.9
   }
 
-   obj.add("ayush",val);
-   obj.add("pratik",val2);
+//    obj.add("ayush",val);
+//    obj.add("pratik",val2);
 //   obj.add("a2",val2);
 
 
 
-   obj.read('ayush');
-   obj.delete('ayush');
-   obj.read('ayush');
+   //  obj.read('ayush');
+   //  obj.delete('ayush');
+    obj.read('ayush');
