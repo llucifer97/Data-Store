@@ -25,6 +25,28 @@ The goal of this project is to build a fie-based key-value data store that suppo
 4. [GIT](#git)
 
 
+## Quick Start
+
+```bash
+$ git clone https://github.com/llucifer97/Data-Store.git
+$ cd Data-Store
+```
+
+Install dependencies:
+
+```bash
+$ npm install 
+```
+
+
+  Start the program:
+
+```bash
+$ node main.js
+```
+
+
+
 ### About Me
 
 - **Name**: Ayush Raj
