@@ -1,155 +1,160 @@
 var fs = require('fs');
 const { type } = require('os');
+const { isArray } = require('util');
 
 
 class DS 
 {   
     constructor(path) {
-         this.mp = new Map();
+          this.mp = new Map();
           this.data = ""
           this.res = ""
           this.path = path
-        // check if file already exist
-
-        // Test the if the file exists 
-           // console.log('\n> Checking if the file exists'); 
+          DS.arr = []
+         
             try { 
             fs.accessSync(path, fs.constants.F_OK); 
-           // console.log('File does exist'); 
-            } catch (err) { 
-           // console.error('File does not exist'); 
-            fs.writeFileSync(path, ""); 
-
-            } 
-            
-          //  console.log('\nCreating the file'); 
-            
-            // Test the if the file exists again 
-          //  console.log('\n> Checking if the file exists'); 
-            try { 
-            fs.accessSync(path, fs.constants.F_OK); 
-          //  console.log('File does exist'); 
-            } catch (err) { 
-           // console.error('File does not exist'); 
-            } 
-
-
-    // read the txtx file
-
-    this.data =  fs.readFileSync(path, 'utf-8')
-		
-		 this.res = this.data.split("+");
-       // console.log(res);
-		// parse JSON object
-		for(let i = 0;i < this.res.length-1;i++){
-            const user = JSON.parse(this.res[i].toString());
-           // console.log( JSON.parse(user.value.toString()));
-            this.mp.set(user.key,user.value);
-            //console.log(this.mp.size)
-           // console.log(this.mp.get(user.key));
-
-		}
-    
-    }
-    
-
-     add(key,value) {
-
-        // if(typeof(value) != object || value == null){
-        //     console.log("Invalid format!! Only JSON object is accepted");
-        //     return;
-        // }
-
-        if(key.length > 32){
-            console.log("Insert key of maximum 32 character!")
-            return;
-        }
-
-        const size = Buffer.byteLength(JSON.stringify(value))
-        if(size > 16000){
-            console.log("Object can be of maximum 16KB")
-            return;
-        }
-        
-
-      if(this.mp.get(key) != undefined) return;
-
-       const data = JSON.stringify(value);
-       
-
-        const user = {
-            key : key,
-            value : data
-        };
-       
-        
-
-        let val = JSON.stringify(user);
-       
-        val = val + "+";
-
-        fs.appendFileSync('data.txt', val);
-
-    }
-
-    read(key) {
-
-        //iterate the map
-         if(this.mp.get(key) != undefined)
-         {
-            //console.log(this.mp.get(key));
-            return this.mp.get(key)
-         }else{
-            console.log(`${key}` + " does not exist");
-             
-         }
            
+            } catch (err)
+             { 
+            fs.writeFileSync(path, ""); 
+            } 
+
+            try { 
+            fs.accessSync(path, fs.constants.F_OK); 
+         
+            } catch (err) 
+            { 
+              console.log(err)
+            } 
+
+
+            // read the txtx file
+            this.data =  fs.readFileSync(path, 'utf-8')
+            this.res = this.data.split("+");
+            for(let i = 0;i < this.res.length-1;i++)
+            {
+                    const user = JSON.parse(this.res[i].toString());
+                    this.mp.set(user.key,user.value);
+            }
+
+
+            for (let key of this.mp.keys()) {
+              DS.arr.push(key)
+            }
     }
 
-    delete(key) {  
-        // console.log(this.data)
-        // console.log(this.res)  // array
-        fs.writeFileSync(this.path, ""); 
-        for(let i = 0;i < this.res.length-1;i++){
-            const user = JSON.parse(this.res[i].toString());
-            // console.log( JSON.parse(user.value.toString()));
-            //this.mp.set(user.key,user.value);
-            if(user.key == key) continue;
-            let val = JSON.stringify(user);
-       
-            val = val + "+";
+     
 
-            fs.appendFileSync('data.txt', val);
+     add(key,value)
+      {
 
-           // console.log(this.mp.get(user.key));
+                if( value == null || isArray(value) === true){
+                    console.log("Invalid format!! Only JSON object is accepted");
+                    return;
+                }
 
-		}
-       
+                if(key.length > 32){
+                    console.log("Insert key of maximum 32 character!")
+                    return;
+                }
 
-		this.mp.delete(key)
+                const size = Buffer.byteLength(JSON.stringify(value))
+                if(size > 16000){
+                    console.log("Object can be of maximum 16KB")
+                    return;
+                }
+
+                if(this.mp.get(key) != undefined) return;
+              
+                const data = JSON.stringify(value);
+                const user = {
+                    key : key,
+                    value : data
+                };
+
+                let val = JSON.stringify(user);
+                val = val + "+";
+                fs.appendFileSync(this.path, val);
+
+                this.mp.set(user.key,user.value);
+                console.log(`${user.key}` + "added susseefully to datastore!");
     }
-  
+
+    read(key)
+     {
+              if(this.mp.get(key) !== undefined)
+              {
+                if(DS.arr.indexOf(key, 0) !== -1)
+                {
+                  console.log(this.mp.get(key))
+                  return this.mp.get(key)
+                }else{
+                  console.log(`${key}` + " has already expired");
+                }
+                
+              }else
+              {
+                  console.log(`${key}` + " does not exist");
+                  
+              }
+            
+    }
+
+    delet(key) 
+     {  
+            // check if found
+            if(this.mp.get(key) === undefined)
+              {
+                console.log(`${key}` + " does not exist");
+                return;
+              }
+
+            fs.writeFileSync(this.path, ""); 
+            for(let i = 0;i < this.res.length-1;i++)
+            {
+                const user = JSON.parse(this.res[i].toString());
+                if(user.key == key) continue;
+                let val = JSON.stringify(user);
+                val = val + "+";
+                fs.appendFileSync('data.txt', val);
+            }
+    
+            this.mp.delete(key);
+            if(this.mp.get(key) === undefined)
+            {
+              console.log(`${key}` + " deleted successfully");
+            }
+    
+     }
+
+    
+
+    timeToLive()
+        {
+          if(DS.arr.length === 0) return;
+            function myFunction()
+             {
+                console.log(DS.arr[0] + " is expired")
+                DS.arr.shift()
+                if(DS.arr.length == 0)
+                {
+                    go();
+                }
+            }
+            const myInterval = setInterval(myFunction, 1000);
+            function go() 
+              {
+                 clearInterval(myInterval);
+              }
+        }
 }
   
   // Usage:
   let obj = new DS('./data.txt');
-  const val = {
-      "age" : 23,
-      "cgpa" : 9.9
-  }
-  
-  const val2 = {
-    "age" : 21,
-    "cgpa" : 4.9
-  }
-
-    obj.add("ayush",val);
-//    obj.add("pratik",val2);
-//   obj.add("a2",val2);
+  obj.arr = []
 
 
-
-   //  obj.read('ayush');
-   //  obj.delete('ayush');
-    let b = JSON.parse(obj.read('ayush'))
-     console.log(b.age);
+  module.exports = {
+    DS
+};
