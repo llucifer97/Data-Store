@@ -49,7 +49,7 @@ class DS
      add(key,value)
       {
 
-                if( value == null || isArray(value) === true){
+                if( value == null || isArray(value) === true || value === undefined){
                     console.log("Invalid format!! Only JSON object is accepted");
                     return;
                 }
@@ -58,6 +58,7 @@ class DS
                     console.log("Insert key of maximum 32 character!")
                     return;
                 }
+                
 
                 const size = Buffer.byteLength(JSON.stringify(value))
                 if(size > 16000){
@@ -65,7 +66,10 @@ class DS
                     return;
                 }
 
-                if(this.mp.get(key) != undefined) return;
+                if(this.mp.get(key) != undefined){
+                  console.log(`${key}` + " already exist");
+                  return;
+                } 
               
                 const data = JSON.stringify(value);
                 const user = {
@@ -128,8 +132,6 @@ class DS
     
      }
 
-    
-
     timeToLive()
         {
           if(DS.arr.length === 0) return;
@@ -142,7 +144,7 @@ class DS
                     go();
                 }
             }
-            const myInterval = setInterval(myFunction, 1000);
+            const myInterval = setInterval(myFunction, 3000);
             function go() 
               {
                  clearInterval(myInterval);
@@ -151,8 +153,8 @@ class DS
 }
   
   // Usage:
-  let obj = new DS('./data.txt');
-  obj.arr = []
+  // let obj = new DS('./dat.txt');
+  // obj.arr = []
 
 
   module.exports = {
