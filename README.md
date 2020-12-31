@@ -13,37 +13,25 @@ The goal of this project is to build a fie-based key-value data store that suppo
 
 
 ### Goals
-- [x] Gesture annotator app
-  - [x] Generate the keypoints from openpose in json format
-  - [x] Design a Gesture annotator tool
-  - [x] make a functionality to be able to trace the emulator on the image
-  - [x] add functionality to save new updated keypoints
-  - [x] host it online to make the tool usable
-  - [x] Build a Rest API to access generated keypoints from remote server
-  - [x] Build a NOSQL sever database for storing data
-- [x] Deploying it on singularity container
-
+  - [x] Instantiate a class based object of data store at a reasonable location in file system
+  - [x] The key will be string and the value will always be a JSON object
+  - [x] Values can be retrieved using key
+  - [x] entries is deleted by passing key 
+  - [x] A time to live property is implemented ,which periodicaly expires the entries of data store which results in, keys no longer available for deletion and read operation
+  - [x] More than one client process is restricted to access the data at a given time using file locking .
+  
+  
 
 ### Tools/Libraries
-1. [Dlib](#dlib)
-2. [Tensorflow](#tensorflow)
-3. [Keras](#keras)
-4. [Openpose](#openpose)
-5. [Scikit-Learn](#Scikit-Learn)
-6. [OpenCV](#OpenCV)
-7. [Git](#Git)
-8. [Pandas](#Pandas)
-9. [Singularity-Container](#Singularity-Container)
+1. [Node.js](#nodejs)
+2. [Javascript](#Javascript)
+3. [locks npm package](#locks)
+4. [GIT](#git)
+
 
 
 ### About Me
 
 - **Name**: Ayush Raj
 - **Email**: ayushraj.bit17@gmail.com
-- **Github**: https://github.com/llucifer97
-- **Website**: https://llucifer97.github.io/
-- **Resume**: [https://www.linkedin.com/in/ayush-raj97/](https://www.linkedin.com/in/ayush-raj97/)
-- **Report**:https://medium.com/@ayushraj.bit17/final-report-redhenlab-gsoc-project-a2f3d54acdb1
-
-This Readme will be updated weekly so stay tuned!
 
