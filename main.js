@@ -1,3 +1,6 @@
+ 
+ let locks = require('locks');
+ let fs = require('fs');
 const { DS } = require("./dataStore");
 
                         
@@ -8,18 +11,27 @@ const obj = new DS('./data.txt');
       "age" : 23,
       "cgpa" : 9.9
   }
-  obj.read("ayush")
-    //    obj.add("ayush",val);
-    //    obj.add("pratik",val);
-    //    obj.add("a1",val);
-    //    obj.add("a2",val);
-    //    obj.add("a3",val);
 
-       // obj.delet("a1")
-       obj.read("ayush")
-       obj.timeToLive();
-
-       obj.read("ayush")
-
+  obj.add("ayush",val);
+            obj.add("raj",val);
+            obj.add("a3",val);
+       var mutex = locks.createMutex();
        
+       mutex.lock(function () {
+         
+         
+           // obj.delet("a3")
+         mutex.unlock();
+       })
+       
+       if (mutex.isLocked) {
+         console.log('Something has the lock.');
+       }
+       
+       
+       
+       
+
+
+
 
