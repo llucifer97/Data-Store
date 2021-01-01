@@ -12,13 +12,13 @@ const obj = new DS('./data.txt');
       "cgpa" : 9.9
   }
 
-  obj.add("ayush",val);
-            obj.add("raj",val);
-            obj.add("a3",val);
+  
        var mutex = locks.createMutex();
        
        mutex.lock(function () {
-         
+         obj.add("ayush",val);
+            obj.add("raj",val);
+            obj.add("a3",val);
          
            // obj.delet("a3")
          mutex.unlock();
