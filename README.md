@@ -23,6 +23,7 @@ The goal of this project is to build a fie-based key-value data store that suppo
 2. [Javascript](#Javascript)
 3. [locks npm package](#locks)
 4. [GIT](#git)
+5. [Jest](#jest)
 
 
 ## Quick Start
