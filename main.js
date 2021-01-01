@@ -13,14 +13,13 @@ const obj = new DS('./data.txt');
   }
 
   
-       var mutex = locks.createMutex();
+       let mutex = locks.createMutex();
        
        mutex.lock(function () {
-         obj.add("ayush",val);
+            obj.add("ayush",val);
             obj.add("raj",val);
             obj.add("a3",val);
-         
-           // obj.delet("a3")
+            obj.delet("a3")
          mutex.unlock();
        })
        
