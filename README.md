@@ -54,6 +54,9 @@ Run test:
 $ npm test
 ```
 
+![log](media/test.png)
+
+
 
 ### About Me
 
