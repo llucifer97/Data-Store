@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
-
+node_modules
+-watch
 # Compiled Object files
 *.slo
 *.lo
