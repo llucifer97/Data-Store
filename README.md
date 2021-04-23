@@ -64,7 +64,9 @@ $ npm install
 
 ```bash
 $ cd src/
-$ npm start
+$ npm start <file_path> dev 
+   OR  
+$ npm start <file_path> test
 ```
 
 
