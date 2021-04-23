@@ -56,6 +56,15 @@ $ npm test
 
 ![log](media/test.png)
 
+![log](media/1.png)
+
+![log](media/2.png)
+
+![log](media/3.png)
+
+![log](media/4.png)
+
+
 
 
 ### About Me
