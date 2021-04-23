@@ -19,7 +19,7 @@ The goal of this project is to build a fie-based key-value data store that suppo
   
 ### Approach
 CHALLENGES :
-1. [Thread Safe](#Thread Safe)
+1. [Thread Safe](#ThreadSafe)
 2. [large file](#lf)
 3. [time-to-live](#ttl)
 
