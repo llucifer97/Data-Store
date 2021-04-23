@@ -14,6 +14,12 @@ class TTL {
                 let timestamp = new Date();
                 this.cache.set(key,{"time" : time,"timestamp":timestamp})
             }
+    
+             /*
+                based on timestamp every key is evaluated if it is expired ,and gets deleted both from cache and store
+                cache stores all the data that is created and also present in db-file,initially
+
+            */
   
 
         isExpired(key)
