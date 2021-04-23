@@ -35,6 +35,7 @@ CHALLENGES :
 
 Used reast api to talk to backend written in Nodejs ,after every request ,the information is validated and based on that appproprite response is made and every edge-case is taken care off. Server was built using Express.js and API testing was done using Postman. Singleton design pattern have been used for data models
 
+PS : About TTL , it was not clear whether data which was stored previousy in file can be accesssed or not .Making them accessible made sense to me ,so all the data except that is created at present will not expire for long time(which can be specified ) and will be accessible until and unless server is running.
 
 ### Tools/Libraries
 1. [Node.js](#nodejs)
