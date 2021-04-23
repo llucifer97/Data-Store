@@ -9,10 +9,10 @@ const app = express();
 
 
 // BASIC SETUP
-//onst port = 8000 || process.env.PORT 
 let env = process.argv[3] || 'dev';
 let path = "../db.txt"; 
 
+// SWITCH PARAMETERS FOR DEV AND TEST
 switch (env) 
 {
     case 'dev':
@@ -34,6 +34,14 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodiess
 }));
 
 
+/*
+
+  @type   GET
+  @route  /
+  @desc   base route for application
+  @access PUBLIC
+
+*/
 
 
 app.get('/', (req, res) => {
@@ -43,6 +51,17 @@ app.get('/', (req, res) => {
 })
 
 })
+
+
+/*
+
+  @type   POST
+  @route  /add
+  @desc   route for adding data to DB-file
+  @access PUBLIC
+
+*/
+
 
  app.post('/add', (req,res) => {
     let key = req.body.key;
@@ -80,6 +99,17 @@ app.get('/', (req, res) => {
 })
 
 
+
+/*
+
+  @type   GET
+  @route  /read
+  @desc   base route for reading data from db-file
+  @access PUBLIC
+
+*/
+
+
 app.get('/read', (req,res) => {
   const key = req.query.key;
  
@@ -100,6 +130,15 @@ app.get('/read', (req,res) => {
  
 })
 
+
+/*
+
+  @type   DELETE
+  @route  /delete
+  @desc   base route for deleting data from DB-file
+  @access PUBLIC
+
+*/
 
 
 app.delete('/delete',(req,res) => {
@@ -122,6 +161,9 @@ app.delete('/delete',(req,res) => {
     store.deleteData(key);
   }
   
+   res.status(404).json({
+    "message" : `${key}  is not found`
+  })
   
   const filetowrite = store.getAllData();
   fs.writeFileSync(path, filetowrite); 
