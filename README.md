@@ -43,9 +43,16 @@ $ npm install
   Start the program:
 
 ```bash
-$ node src/index.js
+$ cd src/
+$ npm start
 ```
 
+
+Run test:
+
+```bash
+$ npm test
+```
 
 
 ### About Me
