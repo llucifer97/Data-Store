@@ -1,0 +1,1 @@
+{"key":"ayush","interval":"10","value":{"marks":70,"sem":"fail","phone":"776576575"}}+
