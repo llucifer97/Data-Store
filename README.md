@@ -33,7 +33,7 @@ CHALLENGES :
   
 ### Implementation
 
-Used reast api to talk to backend written in Nodejs ,after every request ,the information is validated and based on that appproprite response is made and every edge-case is taken care off. Server was built using Express.js and API testing was done using Postman
+Used reast api to talk to backend written in Nodejs ,after every request ,the information is validated and based on that appproprite response is made and every edge-case is taken care off. Server was built using Express.js and API testing was done using Postman. Singleton design pattern have been used for data models
 
 
 ### Tools/Libraries
