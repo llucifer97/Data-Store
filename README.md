@@ -64,9 +64,9 @@ $ npm install
 
 ```bash
 $ cd src/
-$ npm start <file_path> dev 
-   OR  
-$ npm start <file_path> test
+$ npm start <file_path> dev  // for running dev environment
+$ npm start <file_path> test  // for running test environment
+$ npm start                  // for running in default environment
 ```
 
 
