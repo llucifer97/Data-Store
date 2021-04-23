@@ -43,7 +43,7 @@ $ npm install
   Start the program:
 
 ```bash
-$ node main.js
+$ node src/index.js
 ```
 
 
